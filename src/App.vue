@@ -304,6 +304,7 @@ $primary: #6b4;
 
 body {
   margin: 20px;
+  font-family: sans-serif;
 }
 
 .kanji-art {
@@ -361,6 +362,7 @@ body {
 
   footer {
     margin-top: 50px;
+    font-size: 12px;
   }
 
   .controls {
