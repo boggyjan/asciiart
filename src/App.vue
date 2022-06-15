@@ -1,5 +1,5 @@
 <template>
-  <div class="_hansArt">
+  <div class="kanji-art">
     <header>
       <h1>文字圖產生器</h1>
     </header>
@@ -306,7 +306,7 @@ body {
   margin: 20px;
 }
 
-._hansArt {
+.kanji-art {
   // accent-color: $primary;
   accent-color: #49952a;
   font-size: 16px;

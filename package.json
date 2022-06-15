@@ -1,5 +1,5 @@
 {
-  "name": "asciiart",
+  "name": "kanjiart",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
