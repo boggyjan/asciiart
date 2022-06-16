@@ -492,9 +492,8 @@ body {
         opacity: 0;
         transition: opacity 0.4s;
         object-fit: cover;
+        pointer-events: none;
 
-        // :active 是長壓，.active是按鈕切換
-        &:active,
         &.active {
           opacity: 1;
         }
