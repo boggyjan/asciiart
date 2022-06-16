@@ -132,6 +132,12 @@
         >
           {{ copyBtnText }}
         </button>
+        <button
+          type="button"
+          @click="downloadResultImage()"
+        >
+          {{ downloadBtnText }}
+        </button>
       </div>
     </div>
 
@@ -146,6 +152,12 @@ const copyBtnTextType = {
   normal: '複製結果文字',
   success: '複製完成！'
 }
+
+const downloadBtnTextType = {
+  normal: '下載結果圖片',
+  success: '下載完成！'
+}
+
 export default {
   data () {
     return {
@@ -159,6 +171,7 @@ export default {
       windowWidth: 320,
 
       copyBtnText: copyBtnTextType.normal,
+      downloadBtnText: downloadBtnTextType.normal,
       advancedOptionsVisible: false
     }
   },
@@ -286,9 +299,62 @@ export default {
       document.execCommand('copy')
       this.$refs.resultTextArea.blur()
 
+      // btn text
       this.copyBtnText = copyBtnTextType.success
       setTimeout(() => {
         this.copyBtnText = copyBtnTextType.normal
+      }, 2000)
+    },
+
+    downloadResultImage () {
+      const downloadCanvas = document.createElement('canvas')
+      // 20 is font size
+      // 40 is margin
+      const resultTextArr = this.resultText.split('\n')
+      const canvasWidth = this.widthTextLength * 20 + 40
+      const canvasHeight = (resultTextArr.length - 1) * 20 + 40
+      downloadCanvas.width = canvasWidth
+      downloadCanvas.height = canvasHeight
+      const ctx = downloadCanvas.getContext('2d')
+
+      // draw bg
+      ctx.fillStyle = 'white'
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+
+      // draw text
+      ctx.fillStyle = 'black'
+      ctx.font = '20px sans-serif'
+      resultTextArr.forEach((line, idx) => {
+        ctx.fillText(line, 20, idx * 20 + 40)
+      })
+
+      // download
+      downloadCanvas.toBlob(blob => {
+        const a = document.createElement('a')
+        const name = blob.name || 'download'
+        a.download = name
+        a.rel = 'noopener'
+
+        if (typeof blob === 'string') {
+          a.href = blob
+          a.dispatchEvent(new MouseEvent('click'))
+        } else {
+          a.href = URL.createObjectURL(blob)
+
+          setTimeout(function () {
+            URL.revokeObjectURL(a.href)
+          }, 4E4) // 40s
+
+          setTimeout(function () {
+            a.dispatchEvent(new MouseEvent('click'))
+          }, 0)
+        }
+      }, 'image/jpeg', 0.8)
+
+      // btn text
+      this.downloadBtnText = downloadBtnTextType.success
+      setTimeout(() => {
+        this.downloadBtnText = downloadBtnTextType.normal
       }, 2000)
     },
 
@@ -518,6 +584,10 @@ body {
         width: 1px;
         height: 1px;
         opacity: 0;
+      }
+
+      button {
+        margin: 0 4px;
       }
     }
   }
