@@ -1,11 +1,11 @@
 <template>
   <div class="kanji-art">
     <header>
-      <h1>文字圖產生器</h1>
+      <h1>{{ $t('kanji_art_generator') }}</h1>
     </header>
 
     <div class="controls">
-      產生寬度共
+      {{ $t('gen_width_letters_total') }}
       <input
         v-model.number="widthTextLength"
         type="range"
@@ -13,13 +13,13 @@
         :max="100"
       >
       {{ widthTextLength }}
-      字的文字圖
+      {{ $t('gen_width_letters_total_2') }}
 
       <button
         type="button"
         @click="$refs.fileInput.click()"
       >
-        選圖
+        {{ $t('select_pic') }}
       </button>
       <a
         v-if="!advancedOptionsVisible"
@@ -27,7 +27,7 @@
         class="advanced-btn"
         @click="advancedOptionsVisible = true"
       >
-        進階選項
+        {{ $t('adv_opts') }}
       </a>
 
       <input
@@ -51,12 +51,12 @@
         class="advanced-options"
       >
         <div class="title">
-          進階選項
+          {{ $t('adv_opts') }}
         </div>
 
         <div class="option-block">
           <div class="option-title">
-            亮度文字列表
+            {{ $t('list_of_light_to_word') }}
           </div>
 
           <div class="options options-grid-5 options-depth-text">
@@ -83,7 +83,7 @@
           class="close-btn"
           @click="advancedOptionsVisible = false"
         >
-          關閉
+          {{ $t('close') }}
         </button>
       </div>
     </div>
@@ -94,18 +94,19 @@
           :class="{ active: showOriginalImage }"
           @click="showOriginalImage = true"
         >
-          顯示原圖
+          {{ $t('show_original_pic') }}
         </button>
         <button
           :class="{ active: !showOriginalImage }"
           @click="showOriginalImage = false"
         >
-          顯示結果
+          {{ $t('show_result') }}
         </button>
       </div>
 
       <div class="preview-scale">
-        縮放比例：{{ Math.floor(previewScale * 100) }}%
+        {{ $t('scale_percentage') }}: 
+        {{ Math.floor(previewScale * 100) }}%
       </div>
 
       <div
@@ -130,34 +131,36 @@
           type="button"
           @click="copyResult()"
         >
-          {{ copyBtnText }}
+          {{ copyBtnSuccess ? $t('copy_success') : $t('copy') }}
         </button>
         <button
           type="button"
           @click="downloadResultImage()"
         >
-          {{ downloadBtnText }}
+          {{ downloadBtnSuccess ? $t('download_success') : $t('download') }}
         </button>
       </div>
     </div>
 
     <footer>
       Copyright © {{ new Date().getFullYear() }} Boggy Jang. All rights reserved.
+
+      <div class="lang">
+        Language: <select v-model="$i18n.locale">
+          <option
+            v-for="locale in $i18n.availableLocales"
+            :key="`locale-${locale}`"
+            :value="locale"
+          >
+            {{ locale.toUpperCase() }}
+          </option>
+        </select>
+      </div>
     </footer>
   </div>
 </template>
 
 <script>
-const copyBtnTextType = {
-  normal: '複製結果文字',
-  success: '複製完成！'
-}
-
-const downloadBtnTextType = {
-  normal: '下載結果圖片',
-  success: '下載完成！'
-}
-
 export default {
   data () {
     return {
@@ -170,8 +173,8 @@ export default {
       showOriginalImage: false,
       windowWidth: 320,
 
-      copyBtnText: copyBtnTextType.normal,
-      downloadBtnText: downloadBtnTextType.normal,
+      copyBtnSuccess: false,
+      downloadBtnSuccess: false,
       advancedOptionsVisible: false
     }
   },
@@ -300,9 +303,9 @@ export default {
       this.$refs.resultTextArea.blur()
 
       // btn text
-      this.copyBtnText = copyBtnTextType.success
+      this.copyBtnSuccess = true
       setTimeout(() => {
-        this.copyBtnText = copyBtnTextType.normal
+        this.copyBtnSuccess = false
       }, 2000)
     },
 
@@ -352,9 +355,9 @@ export default {
       }, 'image/jpeg', 0.8)
 
       // btn text
-      this.downloadBtnText = downloadBtnTextType.success
+      this.downloadBtnSuccess = true
       setTimeout(() => {
-        this.downloadBtnText = downloadBtnTextType.normal
+        this.downloadBtnSuccess = false
       }, 2000)
     },
 
@@ -429,6 +432,10 @@ body {
   footer {
     margin-top: 50px;
     font-size: 12px;
+
+    .lang {
+      margin-top: 20px;
+    }
   }
 
   .controls {
@@ -587,7 +594,7 @@ body {
       }
 
       button {
-        margin: 0 4px;
+        margin: 4px;
       }
     }
   }
