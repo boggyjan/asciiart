@@ -38,8 +38,8 @@ const messages = {
   },
   jp: {
     kanji_art_generator: '漢字アスキーアート生成',
-    gen_width_letters_total: '幅',
-    gen_width_letters_total_2: '文字のテキストマップを生成',
+    gen_width_letters_total: '一行',
+    gen_width_letters_total_2: '文字で生成',
     select_pic: '画像の選択',
     adv_opts: '高度なオプション',
     list_of_light_to_word: '輝度テキストリスト',
