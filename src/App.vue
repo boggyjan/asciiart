@@ -140,10 +140,27 @@
           {{ downloadBtnSuccess ? $t('download_success') : $t('download') }}
         </button>
       </div>
+
+      <!-- 廣告版位 -->
+      <!-- eslint-disable -->
+      <component :is="'script'" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8209950884395919" crossorigin="anonymous"></component>
+      <ins
+        class="adsbygoogle"
+        style="display: block"
+        data-ad-client="ca-pub-8209950884395919"
+        data-ad-slot="6003768317"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <component :is="'script'">
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </component>
+      <!-- eslint-enable -->
     </div>
 
     <footer>
-      Copyright © {{ new Date().getFullYear() }} Boggy Jang. All rights reserved.
+      Copyright © {{ new Date().getFullYear() }}
+      <a href="https://www.boggy.tw" target="_blank">Boggy Jang</a>. All rights reserved.
 
       <div class="lang">
         Language: <select v-model="$i18n.locale">
