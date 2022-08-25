@@ -143,18 +143,20 @@
 
       <!-- 廣告版位 -->
       <!-- eslint-disable -->
-      <component :is="'script'" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8209950884395919" crossorigin="anonymous"></component>
-      <ins
-        class="adsbygoogle"
-        style="display: block"
-        data-ad-client="ca-pub-8209950884395919"
-        data-ad-slot="6003768317"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-      <component :is="'script'">
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </component>
+      <div class="google-adsense">
+        <component :is="'script'" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8209950884395919" crossorigin="anonymous"></component>
+        <ins
+          class="adsbygoogle"
+          style="display: block"
+          data-ad-client="ca-pub-8209950884395919"
+          data-ad-slot="6003768317"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+        <component :is="'script'">
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </component>
+      </div>
       <!-- eslint-enable -->
     </div>
 
@@ -614,6 +616,11 @@ body {
         margin: 4px;
       }
     }
+  }
+
+  .google-adsense {
+    margin-top: 40px;
+    background: #eee;
   }
 }
 </style>
