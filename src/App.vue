@@ -620,7 +620,7 @@ body {
 
   .google-adsense {
     margin-top: 40px;
-    background: #eee;
+    overflow: hidden;
   }
 }
 </style>
