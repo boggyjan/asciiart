@@ -162,7 +162,7 @@
 
     <footer>
       Copyright © {{ new Date().getFullYear() }}
-      <a href="https://www.boggy.tw" target="_blank">Boggy Jang</a>. All rights reserved.
+      <a href="https://boggy.tw" target="_blank">Boggy Jang</a>. All rights reserved.
 
       <div class="lang">
         Language: <select v-model="$i18n.locale">
